@@ -1,6 +1,7 @@
 const PRODUTOS = [
   {
     id: "creatina",
+    foto: "img/creatina.jpg",
     nome: "Creatina monohidratada",
     descricao: "Creatina pura, sem sabor e sem aditivos.",
     formas: [
@@ -26,6 +27,7 @@ const PRODUTOS = [
   },
   {
     id: "vitamina-d3",
+    foto: "img/frasco.jpg",
     nome: "Vitamina D3 2.000 UI",
     descricao: "Colecalciferol em cápsulas, uma por dia.",
     formas: [
@@ -43,6 +45,7 @@ const PRODUTOS = [
   },
   {
     id: "vitamina-c",
+    foto: "img/frasco.jpg",
     nome: "Vitamina C 500 mg",
     descricao: "Ácido ascórbico em cápsulas.",
     formas: [
@@ -59,6 +62,7 @@ const PRODUTOS = [
   },
   {
     id: "magnesio",
+    foto: "img/frasco.jpg",
     nome: "Magnésio dimalato 300 mg",
     descricao: "Magnésio na forma dimalato, em cápsulas.",
     formas: [
@@ -75,6 +79,7 @@ const PRODUTOS = [
   },
   {
     id: "colageno",
+    foto: "img/frasco.jpg",
     nome: "Colágeno hidrolisado + vitamina C",
     descricao: "Colágeno hidrolisado com vitamina C.",
     formas: [
@@ -98,6 +103,7 @@ const PRODUTOS = [
   },
   {
     id: "complexo-b",
+    foto: "img/frasco.jpg",
     nome: "Complexo B",
     descricao: "Vitaminas do complexo B reunidas numa cápsula.",
     formas: [
@@ -114,6 +120,7 @@ const PRODUTOS = [
   },
   {
     id: "zinco",
+    foto: "img/frasco.jpg",
     nome: "Zinco quelato 30 mg",
     descricao: "Zinco na forma quelato, em cápsulas.",
     formas: [
