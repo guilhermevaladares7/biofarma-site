@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loja | Biofarma Farmácia de Manipulação</title>
+<meta name="description" content="Monte seu pedido de vitaminas e suplementos manipulados na Biofarma, no Centro de Caratinga, e envie pelo WhatsApp.">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #1d3bc6;
+    --azul-escuro: #08113a;
+    --ceu: #edf2ff;
+    --capsula: #9db7ff;
+    --texto: #13204a;
+    --cinza: #56627f;
+    --linha: #d8e0f5;
+    --zap: #1a9e52;
+    --ambar: #f4b740;
+    --erro: #b3261e;
+    --titulo: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --corpo: "Figtree", "Segoe UI", system-ui, sans-serif;
+    --colmeia-azul: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%231d3bc6' stroke-opacity='.10' stroke-width='2'/%3E%3C/svg%3E");
+    --colmeia-clara: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%239db7ff' stroke-opacity='.22' stroke-width='2'/%3E%3C/svg%3E");
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body { margin: 0; font-family: var(--corpo); color: var(--texto); background: #fff; font-size: 16px; line-height: 1.6; }
+  img { max-width: 100%; display: block; }
+  a { color: var(--azul); }
+  h1, h2, h3 { font-family: var(--titulo); line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  p { margin: 0 0 12px; }
+  button, input, textarea, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--ambar); outline-offset: 3px; border-radius: 6px; }
+  .container { width: min(1180px, 100% - 40px); margin: 0 auto; }
+
+  .botao { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform .15s, background .15s; }
+  .botao:hover { transform: translateY(-2px); }
+  .botao-azul { background: var(--azul); color: #fff; }
+  .botao-azul:hover { background: #1834a3; }
+  .botao-zap { background: var(--zap); color: #fff; }
+  .botao-zap:hover { background: #168a47; }
+
+  .topo { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); }
+  .topo .container { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 20px; }
+  .logo img { height: 46px; width: auto; }
+  .menu { display: flex; align-items: center; gap: 24px; }
+  .menu a { text-decoration: none; color: var(--texto); font-weight: 600; font-size: .95rem; }
+  .menu a:hover, .menu a[aria-current] { color: var(--azul); }
+
+  .cabecalho { background: var(--colmeia-azul), linear-gradient(180deg, var(--ceu) 0%, #fff 100%); padding: 56px 0 40px; }
+  .cabecalho h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; color: var(--azul-escuro); margin-bottom: 14px; }
+  .cabecalho p { color: var(--cinza); max-width: 60ch; font-size: 1.08rem; margin: 0; }
+
+  .loja { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 36px; align-items: start; padding: 36px 0 96px; }
+  .grade-produtos { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+
+  .produto { border: 1px solid var(--linha); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 14px; background: #fff; transition: box-shadow .2s, border-color .2s; }
+  .produto:hover { border-color: var(--capsula); box-shadow: 0 14px 34px rgba(12,28,79,.08); }
+  .produto-topo { display: flex; gap: 14px; align-items: center; }
+  .icone-produto { flex: none; width: 52px; height: 52px; border-radius: 16px; background: var(--colmeia-clara), var(--azul-escuro); display: grid; place-items: center; }
+  .icone-produto span { width: 30px; height: 13px; border-radius: 99px; background: linear-gradient(90deg, var(--azul) 50%, #fff 50%); transform: rotate(-30deg); }
+  .icone-produto.po span { width: 22px; height: 26px; border-radius: 6px 6px 8px 8px; background: linear-gradient(180deg, var(--capsula) 0 28%, #fff 28%); transform: none; }
+  .produto h3 { font-size: 1.12rem; font-weight: 700; }
+  .produto .descricao { color: var(--cinza); font-size: .93rem; margin: 2px 0 0; }
+
+  .grupo { border: 0; margin: 0; padding: 0; }
+  .grupo legend { font-size: .8rem; font-weight: 700; color: var(--cinza); margin-bottom: 6px; padding: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1.5px solid var(--linha); background: #fff; border-radius: 999px; padding: 6px 12px; font-size: .88rem; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+  .chip:hover { border-color: var(--azul); }
+  .chip[aria-pressed="true"] { background: var(--azul); border-color: var(--azul); color: #fff; }
+
+  .produto-rodape { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid var(--linha); }
+  .preco { font-family: var(--titulo); font-weight: 800; font-size: 1.45rem; color: var(--azul-escuro); }
+  .preco small { display: block; font-family: var(--corpo); font-weight: 500; font-size: .76rem; color: var(--cinza); }
+  .contador { display: inline-flex; align-items: center; border: 1.5px solid var(--linha); border-radius: 999px; }
+  .contador button { width: 34px; height: 34px; border: 0; background: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: var(--azul); border-radius: 50%; }
+  .contador button:hover { background: var(--ceu); }
+  .contador button:disabled { color: var(--linha); cursor: default; background: none; }
+  .contador output { min-width: 26px; text-align: center; font-weight: 700; }
+  .adicionar { width: 100%; padding: 12px 18px; }
+  .adicionar.adicionado { background: var(--zap); }
+
+  .pedido { position: sticky; top: 92px; max-height: calc(100vh - 108px); overflow-y: auto; overscroll-behavior: contain; border-radius: 26px; background: var(--colmeia-clara), var(--azul-escuro); color: #fff; padding: 26px; }
+  .pedido h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+  .pedido .vazio { color: #c9d4f5; font-size: .95rem; margin: 14px 0 0; }
+  .itens { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .item { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 12px 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; }
+  .item strong { font-size: .95rem; }
+  .item .detalhe { color: #c9d4f5; font-size: .84rem; grid-column: 1; }
+  .item .valor { grid-row: 1; grid-column: 2; font-weight: 700; text-align: right; }
+  .item .acoes-item { grid-column: 2; display: flex; gap: 4px; justify-content: flex-end; align-items: center; }
+  .item .acoes-item button { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: none; color: #fff; cursor: pointer; font-weight: 700; line-height: 1; }
+  .item .acoes-item button:hover { background: rgba(255,255,255,.12); }
+  .item .acoes-item span { min-width: 18px; text-align: center; font-weight: 700; font-size: .9rem; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 4px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.15); }
+  .total span { color: #c9d4f5; font-weight: 600; }
+  .total strong { font-family: var(--titulo); font-size: 1.8rem; font-weight: 800; }
+  .aviso-valor { color: var(--capsula); font-size: .82rem; margin: 0 0 18px; }
+
+  .formulario label, .formulario legend { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 6px; padding: 0; }
+  .formulario .campo { margin-bottom: 14px; }
+  .formulario input[type="text"], .formulario input[type="tel"], .formulario textarea { width: 100%; padding: 11px 13px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.18); background: rgba(255,255,255,.08); color: #fff; }
+  .formulario input::placeholder, .formulario textarea::placeholder { color: #8f9cc4; }
+  .formulario input:focus, .formulario textarea:focus { outline: none; border-color: var(--capsula); background: rgba(255,255,255,.12); }
+  .formulario fieldset { border: 0; margin: 0 0 14px; padding: 0; }
+  .opcoes-radio { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .opcoes-radio label { margin: 0; font-weight: 600; font-size: .86rem; border: 1.5px solid rgba(255,255,255,.18); border-radius: 12px; padding: 9px 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+  .opcoes-radio label:has(input:checked) { border-color: var(--capsula); background: rgba(157,183,255,.16); }
+  .opcoes-radio input { accent-color: var(--capsula); margin: 0; }
+  #campo-endereco[hidden] { display: none; }
+  #erros-pedido { color: #ffb4ab; font-size: .88rem; min-height: 1.2em; margin: 0 0 10px; }
+  .enviar { width: 100%; padding: 15px; font-size: 1rem; }
+  .enviar:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  .barra-pedido { display: none; }
+
+  footer { background: var(--azul-escuro); color: #c9d4f5; padding: 32px 0; font-size: .88rem; }
+  footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  footer a { color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .botao:hover { transform: none; }
+  }
+
+  @media (max-width: 980px) {
+    .loja { grid-template-columns: 1fr; padding-bottom: 120px; }
+    .pedido { position: static; max-height: none; overflow: visible; }
+    .itens { max-height: none; }
+    .barra-pedido { display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 15; justify-content: space-between; align-items: center; background: var(--azul-escuro); color: #fff; border-radius: 18px; padding: 12px 14px 12px 18px; box-shadow: 0 14px 34px rgba(0,0,0,.28); text-decoration: none; font-weight: 700; }
+    .barra-pedido[hidden] { display: none; }
+    .barra-pedido span:last-child { background: var(--zap); padding: 9px 14px; border-radius: 999px; font-size: .9rem; }
+  }
+  @media (max-width: 640px) {
+    .menu a:not(.voltar) { display: none; }
+    .logo img { height: 38px; }
+    .cabecalho { padding: 40px 0 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="container">
+    <a class="logo" href="index.html"><img src="img/logo.png" alt="Biofarma Farmácia de Manipulação"></a>
+    <nav class="menu">
+      <a href="index.html#sobre">A farmácia</a>
+      <a href="index.html#qualidade">Qualidade</a>
+      <a href="loja.html" aria-current="page">Loja</a>
+      <a class="voltar" href="index.html">Voltar ao site</a>
+    </nav>
+  </div>
+</header>
+
+<section class="cabecalho">
+  <div class="container">
+    <h1>Monte seu pedido</h1>
+    <p>Escolha a forma e a quantidade de cada fórmula, revise o pedido e envie pelo WhatsApp. O farmacêutico confirma tudo com você antes de manipular.</p>
+  </div>
+</section>
+
+<main class="container loja">
+  <section aria-label="Produtos">
+    <div class="grade-produtos" id="grade-produtos"></div>
+  </section>
+
+  <aside class="pedido" id="pedido" aria-labelledby="titulo-pedido">
+    <h2 id="titulo-pedido">Seu pedido</h2>
+    <p class="vazio" id="pedido-vazio">Nenhum item ainda. Escolha um produto e toque em "Adicionar ao pedido".</p>
+    <ul class="itens" id="itens"></ul>
+    <div class="total"><span>Total estimado</span><strong id="total">R$ 0,00</strong></div>
+    <p class="aviso-valor">O valor final, o prazo e a disponibilidade são confirmados pelo farmacêutico no WhatsApp.</p>
+
+    <form class="formulario" id="form-pedido" novalidate>
+      <div class="campo">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" name="nome" autocomplete="name" maxlength="100">
+      </div>
+      <fieldset>
+        <legend>Como quer receber?</legend>
+        <div class="opcoes-radio">
+          <label><input type="radio" name="entrega" value="Retirada na farmácia" checked> Retirar na farmácia</label>
+          <label><input type="radio" name="entrega" value="Entrega"> Entrega</label>
+        </div>
+      </fieldset>
+      <div class="campo" id="campo-endereco" hidden>
+        <label for="endereco">Endereço de entrega</label>
+        <textarea id="endereco" name="endereco" rows="2" maxlength="300" placeholder="Rua, número, bairro"></textarea>
+      </div>
+      <fieldset>
+        <legend>Forma de pagamento</legend>
+        <div class="opcoes-radio">
+          <label><input type="radio" name="pagamento" value="Pix" checked> Pix</label>
+          <label><input type="radio" name="pagamento" value="Cartão de crédito"> Crédito</label>
+          <label><input type="radio" name="pagamento" value="Cartão de débito"> Débito</label>
+          <label><input type="radio" name="pagamento" value="Dinheiro"> Dinheiro</label>
+        </div>
+      </fieldset>
+      <div class="campo">
+        <label for="observacao">Observação (opcional)</label>
+        <textarea id="observacao" name="observacao" rows="2" maxlength="300" placeholder="Ex.: tenho receita, prefiro cápsulas pequenas"></textarea>
+      </div>
+      <p id="erros-pedido" role="alert"></p>
+      <button class="botao botao-zap enviar" type="submit" id="enviar" disabled>Enviar pedido pelo WhatsApp</button>
+    </form>
+  </aside>
+</main>
+
+<a class="barra-pedido" href="#pedido" id="barra-pedido" hidden>
+  <span id="barra-resumo">0 itens · R$ 0,00</span>
+  <span>Ver pedido</span>
+</a>
+
+<footer>
+  <div class="container">
+    <span>Biofarma Farmácia de Manipulação · Rua Raul Soares, 15 - Centro, Caratinga - MG</span>
+    <span>Farmacêutico responsável: Ilber Valadares da Silva Araujo</span>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="produtos.js"></script>
+<script>
+  const CHAVE_CARRINHO = "biofarma-carrinho";
+  const formatoReal = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+  const grade = document.getElementById("grade-produtos");
+  const listaItens = document.getElementById("itens");
+  const textoVazio = document.getElementById("pedido-vazio");
+  const textoTotal = document.getElementById("total");
+  const botaoEnviar = document.getElementById("enviar");
+  const formulario = document.getElementById("form-pedido");
+  const caixaErros = document.getElementById("erros-pedido");
+  const campoEndereco = document.getElementById("campo-endereco");
+  const barraPedido = document.getElementById("barra-pedido");
+  const barraResumo = document.getElementById("barra-resumo");
+
+  let carrinho = lerCarrinho();
+
+  function lerCarrinho() {
+    try {
+      const salvo = localStorage.getItem(CHAVE_CARRINHO);
+      if (salvo) {
+        return JSON.parse(salvo).filter(function (item) {
+          return buscarOpcao(item) !== null;
+        });
+      } else {
+        return [];
+      }
+    } catch (erro) {
+      return [];
+    }
+  }
+
+  function salvarCarrinho() {
+    try {
+      localStorage.setItem(CHAVE_CARRINHO, JSON.stringify(carrinho));
+    } catch (erro) {
+    }
+  }
+
+  function buscarProduto(id) {
+    const encontrado = PRODUTOS.find(function (produto) {
+      return produto.id === id;
+    });
+    if (encontrado) {
+      return encontrado;
+    } else {
+      return null;
+    }
+  }
+
+  function buscarOpcao(item) {
+    const produto = buscarProduto(item.produtoId);
+    if (produto === null) {
+      return null;
+    }
+    const forma = produto.formas[item.formaIndex];
+    if (!forma) {
+      return null;
+    }
+    const opcao = forma.opcoes[item.opcaoIndex];
+    if (!opcao) {
+      return null;
+    }
+    return { produto: produto, forma: forma, opcao: opcao };
+  }
+
+  function descreverOpcao(forma, opcao) {
+    if (forma.unidade === "g") {
+      return forma.nome + " " + opcao.quantidade + " g";
+    } else {
+      return opcao.quantidade + " " + forma.unidade;
+    }
+  }
+
+  function criarElemento(tag, classe, texto) {
+    const elemento = document.createElement(tag);
+    if (classe) {
+      elemento.className = classe;
+    }
+    if (texto !== undefined) {
+      elemento.textContent = texto;
+    }
+    return elemento;
+  }
+
+  function criarChips(rotulo, opcoes, selecionado, aoEscolher) {
+    const grupo = criarElemento("fieldset", "grupo");
+    grupo.appendChild(criarElemento("legend", "", rotulo));
+    const chips = criarElemento("div", "chips");
+    opcoes.forEach(function (texto, indice) {
+      const chip = criarElemento("button", "chip", texto);
+      chip.type = "button";
+      if (indice === selecionado) {
+        chip.setAttribute("aria-pressed", "true");
+      } else {
+        chip.setAttribute("aria-pressed", "false");
+      }
+      chip.addEventListener("click", function () {
+        aoEscolher(indice);
+      });
+      chips.appendChild(chip);
+    });
+    grupo.appendChild(chips);
+    return grupo;
+  }
+
+  function criarCartao(produto) {
+    const estado = { formaIndex: 0, opcaoIndex: 0, quantidade: 1 };
+    const cartao = criarElemento("article", "produto");
+
+    function desenhar() {
+      cartao.textContent = "";
+      const forma = produto.formas[estado.formaIndex];
+      const opcao = forma.opcoes[estado.opcaoIndex];
+
+      const topo = criarElemento("div", "produto-topo");
+      const icone = criarElemento("div", "icone-produto");
+      if (forma.unidade === "g") {
+        icone.classList.add("po");
+      }
+      icone.appendChild(criarElemento("span"));
+      icone.setAttribute("aria-hidden", "true");
+      const textos = criarElemento("div");
+      textos.appendChild(criarElemento("h3", "", produto.nome));
+      textos.appendChild(criarElemento("p", "descricao", produto.descricao));
+      topo.appendChild(icone);
+      topo.appendChild(textos);
+      cartao.appendChild(topo);
+
+      if (produto.formas.length > 1) {
+        const nomesFormas = produto.formas.map(function (f) {
+          return f.nome;
+        });
+        cartao.appendChild(criarChips("Forma", nomesFormas, estado.formaIndex, function (indice) {
+          estado.formaIndex = indice;
+          estado.opcaoIndex = 0;
+          desenhar();
+        }));
+      }
+
+      let rotuloQuantidade = "Quantidade";
+      if (forma.unidade === "g") {
+        rotuloQuantidade = "Gramas";
+      } else {
+        rotuloQuantidade = "Cápsulas";
+      }
+      const nomesOpcoes = forma.opcoes.map(function (o) {
+        if (forma.unidade === "g") {
+          return o.quantidade + " g";
+        } else {
+          return String(o.quantidade);
+        }
+      });
+      cartao.appendChild(criarChips(rotuloQuantidade, nomesOpcoes, estado.opcaoIndex, function (indice) {
+        estado.opcaoIndex = indice;
+        desenhar();
+      }));
+
+      const rodape = criarElemento("div", "produto-rodape");
+      const preco = criarElemento("div", "preco", formatoReal.format(opcao.preco * estado.quantidade));
+      if (estado.quantidade > 1) {
+        preco.appendChild(criarElemento("small", "", estado.quantidade + " × " + formatoReal.format(opcao.preco)));
+      } else {
+        preco.appendChild(criarElemento("small", "", descreverOpcao(forma, opcao)));
+      }
+      const contador = criarElemento("div", "contador");
+      const menos = criarElemento("button", "", "−");
+      menos.type = "button";
+      menos.setAttribute("aria-label", "Diminuir quantidade");
+      if (estado.quantidade <= 1) {
+        menos.disabled = true;
+      }
+      menos.addEventListener("click", function () {
+        if (estado.quantidade > 1) {
+          estado.quantidade = estado.quantidade - 1;
+          desenhar();
+        }
+      });
+      const valor = criarElemento("output", "", String(estado.quantidade));
+      const mais = criarElemento("button", "", "+");
+      mais.type = "button";
+      mais.setAttribute("aria-label", "Aumentar quantidade");
+      mais.addEventListener("click", function () {
+        if (estado.quantidade < 20) {
+          estado.quantidade = estado.quantidade + 1;
+          desenhar();
+        }
+      });
+      contador.appendChild(menos);
+      contador.appendChild(valor);
+      contador.appendChild(mais);
+      rodape.appendChild(preco);
+      rodape.appendChild(contador);
+      cartao.appendChild(rodape);
+
+      const adicionar = criarElemento("button", "botao botao-azul adicionar", "Adicionar ao pedido");
+      adicionar.type = "button";
+      adicionar.addEventListener("click", function () {
+        adicionarAoCarrinho(produto.id, estado.formaIndex, estado.opcaoIndex, estado.quantidade);
+        adicionar.textContent = "Adicionado ✓";
+        adicionar.classList.add("adicionado");
+        setTimeout(function () {
+          adicionar.textContent = "Adicionar ao pedido";
+          adicionar.classList.remove("adicionado");
+        }, 1400);
+      });
+      cartao.appendChild(adicionar);
+    }
+
+    desenhar();
+    return cartao;
+  }
+
+  function adicionarAoCarrinho(produtoId, formaIndex, opcaoIndex, quantidade) {
+    const existente = carrinho.find(function (item) {
+      return item.produtoId === produtoId && item.formaIndex === formaIndex && item.opcaoIndex === opcaoIndex;
+    });
+    if (existente) {
+      existente.quantidade = Math.min(existente.quantidade + quantidade, 20);
+    } else {
+      carrinho.push({ produtoId: produtoId, formaIndex: formaIndex, opcaoIndex: opcaoIndex, quantidade: quantidade });
+    }
+    salvarCarrinho();
+    desenharCarrinho();
+  }
+
+  function alterarQuantidade(indice, diferenca) {
+    const item = carrinho[indice];
+    item.quantidade = item.quantidade + diferenca;
+    if (item.quantidade <= 0) {
+      carrinho.splice(indice, 1);
+    } else if (item.quantidade > 20) {
+      item.quantidade = 20;
+    }
+    salvarCarrinho();
+    desenharCarrinho();
+  }
+
+  function calcularTotal() {
+    let total = 0;
+    carrinho.forEach(function (item) {
+      const dados = buscarOpcao(item);
+      total = total + dados.opcao.preco * item.quantidade;
+    });
+    return total;
+  }
+
+  function contarUnidades() {
+    let unidades = 0;
+    carrinho.forEach(function (item) {
+      unidades = unidades + item.quantidade;
+    });
+    return unidades;
+  }
+
+  function desenharCarrinho() {
+    listaItens.textContent = "";
+    carrinho.forEach(function (item, indice) {
+      const dados = buscarOpcao(item);
+      const linha = criarElemento("li", "item");
+      linha.appendChild(criarElemento("strong", "", dados.produto.nome));
+      linha.appendChild(criarElemento("span", "valor", formatoReal.format(dados.opcao.preco * item.quantidade)));
+      linha.appendChild(criarElemento("span", "detalhe", descreverOpcao(dados.forma, dados.opcao)));
+      const acoes = criarElemento("div", "acoes-item");
+      const menos = criarElemento("button", "", "−");
+      menos.type = "button";
+      menos.setAttribute("aria-label", "Diminuir " + dados.produto.nome);
+      menos.addEventListener("click", function () {
+        alterarQuantidade(indice, -1);
+      });
+      const mais = criarElemento("button", "", "+");
+      mais.type = "button";
+      mais.setAttribute("aria-label", "Aumentar " + dados.produto.nome);
+      mais.addEventListener("click", function () {
+        alterarQuantidade(indice, 1);
+      });
+      acoes.appendChild(menos);
+      acoes.appendChild(criarElemento("span", "", String(item.quantidade)));
+      acoes.appendChild(mais);
+      linha.appendChild(acoes);
+      listaItens.appendChild(linha);
+    });
+
+    const total = calcularTotal();
+    const unidades = contarUnidades();
+    textoTotal.textContent = formatoReal.format(total);
+
+    if (carrinho.length === 0) {
+      textoVazio.hidden = false;
+      botaoEnviar.disabled = true;
+      barraPedido.hidden = true;
+    } else {
+      textoVazio.hidden = true;
+      botaoEnviar.disabled = false;
+      barraPedido.hidden = false;
+      let palavra = "itens";
+      if (unidades === 1) {
+        palavra = "item";
+      }
+      barraResumo.textContent = unidades + " " + palavra + " · " + formatoReal.format(total);
+    }
+  }
+
+  function montarMensagem(dados) {
+    const linhas = ["Olá! Gostaria de fazer este pedido pelo site da Biofarma:", ""];
+    carrinho.forEach(function (item) {
+      const info = buscarOpcao(item);
+      linhas.push("• " + item.quantidade + "x " + info.produto.nome + " (" + descreverOpcao(info.forma, info.opcao) + ") — " + formatoReal.format(info.opcao.preco * item.quantidade));
+    });
+    linhas.push("");
+    linhas.push("Total estimado: " + formatoReal.format(calcularTotal()));
+    linhas.push("");
+    linhas.push("Nome: " + dados.nome);
+    if (dados.entrega === "Entrega") {
+      linhas.push("Recebimento: Entrega em " + dados.endereco);
+    } else {
+      linhas.push("Recebimento: Retirada na farmácia");
+    }
+    linhas.push("Pagamento: " + dados.pagamento);
+    if (dados.observacao !== "") {
+      linhas.push("Observação: " + dados.observacao);
+    }
+    return linhas.join("\n");
+  }
+
+  formulario.querySelectorAll('input[name="entrega"]').forEach(function (opcao) {
+    opcao.addEventListener("change", function () {
+      if (opcao.value === "Entrega" && opcao.checked) {
+        campoEndereco.hidden = false;
+      } else if (opcao.checked) {
+        campoEndereco.hidden = true;
+      }
+    });
+  });
+
+  formulario.addEventListener("submit", function (evento) {
+    evento.preventDefault();
+    const bruto = new FormData(formulario);
+    const dados = {
+      nome: String(bruto.get("nome") || "").trim(),
+      entrega: String(bruto.get("entrega") || ""),
+      endereco: String(bruto.get("endereco") || "").trim(),
+      pagamento: String(bruto.get("pagamento") || ""),
+      observacao: String(bruto.get("observacao") || "").trim()
+    };
+    const erros = [];
+    if (carrinho.length === 0) {
+      erros.push("Adicione pelo menos um produto.");
+    }
+    if (dados.nome === "") {
+      erros.push("Informe seu nome.");
+    }
+    if (dados.entrega === "Entrega" && dados.endereco === "") {
+      erros.push("Informe o endereço de entrega.");
+    }
+    if (erros.length > 0) {
+      caixaErros.textContent = erros.join(" ");
+    } else {
+      caixaErros.textContent = "";
+      const link = "https://wa.me/" + NUMERO_WHATSAPP + "?text=" + encodeURIComponent(montarMensagem(dados));
+      window.open(link, "_blank", "noopener");
+    }
+  });
+
+  PRODUTOS.forEach(function (produto) {
+    grade.appendChild(criarCartao(produto));
+  });
+  desenharCarrinho();
+</script>
+</body>
+</html>
