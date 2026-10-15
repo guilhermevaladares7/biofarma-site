@@ -90,7 +90,7 @@
   .moldura .foto img { object-position: center 45%; }
   .moldura .foto { position: absolute; inset: 0; border-radius: 999px; overflow: hidden; border: 10px solid #fff; box-shadow: 0 30px 60px rgba(12,28,79,.18); }
   .moldura::before { content: ""; position: absolute; inset: -22px -38px 46% 38%; border-radius: 999px; background: var(--capsula); transform: rotate(-24deg); z-index: -1; opacity: .55; }
-  .selo { position: absolute; z-index: 2; left: -34px; bottom: 56px; background: #fff; border-radius: 16px; padding: 12px 16px; box-shadow: 0 14px 30px rgba(12,28,79,.14); font-size: .88rem; line-height: 1.35; max-width: 210px; }
+  .selo { position: absolute; z-index: 2; left: -34px; bottom: 56px; background: #fff; border-radius: 16px; padding: 12px 16px; box-shadow: 0 14px 30px rgba(12,28,79,.14); font-size: .88rem; line-height: 1.35; max-width: 240px; white-space: nowrap; }
   .selo strong { display: block; color: var(--azul); font-size: .95rem; }
 
   .foto { background: linear-gradient(140deg, var(--capsula), var(--azul)); position: relative; }
@@ -144,8 +144,6 @@
   .formulario input, .formulario textarea { width: 100%; margin-top: 6px; padding: 13px 14px; border: 1.5px solid var(--linha); border-radius: 12px; font: inherit; color: var(--texto); background: #fafbff; }
   .formulario input:focus, .formulario textarea:focus { border-color: var(--azul); outline: none; background: #fff; }
   .formulario .botao { width: 100%; }
-  .formulario .botao:disabled { opacity: .75; cursor: wait; transform: none; }
-  .botao.enviando::before { content: ""; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.35); border-top-color: #fff; border-radius: 50%; animation: girar .7s linear infinite; }
   #erros { color: #b3261e; font-size: .92rem; margin: 0 0 12px; min-height: 1.2em; }
 
   .local .container { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: stretch; }
@@ -172,14 +170,81 @@
   .pilula-contorno { fill: none; stroke: var(--azul); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation: tracar 2.2s ease-in-out infinite; }
   .pilula-miolo { opacity: 0; animation: encher 2.2s ease-in-out infinite; }
 
-  @keyframes girar { to { transform: rotate(360deg); } }
+  [data-colmeia] { position: relative; isolation: isolate; }
+  .colmeia-canvas { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  .hero.colmeia-viva { background: linear-gradient(180deg, var(--ceu) 0%, #fff 100%); }
+
+  .topo { transition: box-shadow .3s ease; }
+  .topo.rolado { box-shadow: 0 10px 30px rgba(12,28,79,.08); }
+
+  .botao:not(.flutuante) { position: relative; }
+  .botao { overflow: hidden; }
+  .botao::after { content: ""; position: absolute; top: 0; left: -70%; width: 45%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-20deg); transition: left .7s ease; pointer-events: none; }
+  .botao:hover::after { left: 140%; }
+
+  .destaque { background: linear-gradient(transparent 62%, rgba(157,183,255,.55) 62%) no-repeat 0 0 / 0% 100%; transition: background-size 1s cubic-bezier(.2,.8,.2,1) .9s; }
+  .pronto .destaque, html:not(.js) .destaque { background-size: 100% 100%; }
+
+  .js .hero h1, .js .hero .intro, .js .hero .acoes { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+  .js .moldura { opacity: 0; transform: translateY(30px) scale(.96); transition: opacity 1s ease .25s, transform 1s cubic-bezier(.2,.8,.2,1) .25s; }
+  .pronto .hero h1, .pronto .hero .intro, .pronto .hero .acoes, .pronto .moldura { opacity: 1; transform: none; }
+  .pronto .hero .intro { transition-delay: .15s; }
+  .pronto .hero .acoes { transition-delay: .3s; }
+
+  .moldura .foto { animation: flutuar 7s ease-in-out infinite; }
+  .moldura::before { animation: balancar 9s ease-in-out infinite; }
+  .capsula-voa { position: absolute; z-index: 3; width: 58px; height: 24px; border-radius: 99px; background: linear-gradient(90deg, var(--azul) 50%, var(--azul-escuro) 50%); box-shadow: 0 12px 24px rgba(8,17,58,.25), inset 0 3px 0 rgba(255,255,255,.35); animation: voar 6s ease-in-out infinite; pointer-events: none; }
+  .capsula-voa::after { content: ""; position: absolute; top: 5px; left: 9px; width: 16px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.55); }
+  .capsula-voa.c1 { top: 6%; right: -6%; --giro: -28deg; }
+  .capsula-voa.c2 { bottom: 26%; right: -14%; width: 44px; height: 18px; --giro: 34deg; animation-delay: -2s; animation-duration: 7.5s; }
+  .capsula-voa.c3 { top: 34%; left: -16%; width: 38px; height: 16px; --giro: 70deg; animation-delay: -4s; animation-duration: 8s; opacity: .9; }
+
+  .marco { display: flex; align-items: center; gap: 18px; margin: 26px 0 18px; padding: 18px 22px; border: 1px solid var(--linha); border-radius: 20px; background: linear-gradient(135deg, #fff, var(--ceu)); max-width: 460px; }
+  .numero-anos { font-family: var(--titulo); font-weight: 800; font-size: 3.4rem; line-height: 1; color: var(--azul); min-width: 1.6em; font-variant-numeric: tabular-nums; }
+  .marco-titulo { display: block; font-weight: 700; font-size: 1.05rem; }
+  .marco-sub { display: block; color: var(--cinza); font-size: .9rem; }
+
+  .js .revelar { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  .js .revelar.visivel { opacity: 1; transform: none; }
+
+  .passos::after { content: ""; position: absolute; top: 27px; left: 28px; right: calc(25% - 46px); height: 2px; background: var(--azul); transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(.2,.8,.2,1) .2s; }
+  .passos.visivel::after, html:not(.js) .passos::after { transform: scaleX(1); }
+  .passos li { z-index: 1; }
+  .js .passos li::before { transform: scale(.3); opacity: 0; transition: transform .5s cubic-bezier(.3,1.6,.5,1), opacity .3s ease; }
+  .js .passos.visivel li::before { transform: none; opacity: 1; }
+  .passos li:nth-child(1)::before { transition-delay: .2s; }
+  .passos li:nth-child(2)::before { transition-delay: .55s; }
+  .passos li:nth-child(3)::before { transition-delay: .9s; }
+  .passos li:nth-child(4)::before { transition-delay: 1.25s; }
+
+  .servico .icone { transition: background .3s ease, transform .3s ease, box-shadow .3s ease; }
+  .servico .icone span { transition: transform .5s cubic-bezier(.2,.8,.2,1), background .3s ease; }
+  .servico:hover .icone { background: var(--azul); transform: translateY(-3px); box-shadow: 0 10px 22px rgba(29,59,198,.25); }
+  .servico:hover .icone span { background: linear-gradient(90deg, #fff 50%, var(--capsula) 50%); transform: rotate(160deg); }
+
+  .painel-frasco { perspective: 900px; }
+  .painel-frasco img { transition: transform .25s ease; will-change: transform; }
+
+  .cartao-farmaceutico { transition: transform .35s ease, box-shadow .35s ease; }
+  .cartao-farmaceutico:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(8,17,58,.25); }
+
+  .flutuante { animation: pulso 2.6s ease-out infinite; }
+
   @keyframes tracar { 0% { stroke-dashoffset: 100; opacity: 1; } 45%, 85% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
   @keyframes encher { 0%, 42% { opacity: 0; } 58%, 85% { opacity: 1; } 100% { opacity: 0; } }
   @keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+  @keyframes flutuar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes balancar { 0%, 100% { transform: rotate(-24deg); } 50% { transform: rotate(-18deg) translateY(8px); } }
+  @keyframes voar { 0%, 100% { transform: translate(0, 0) rotate(var(--giro)); } 50% { transform: translate(-8px, -18px) rotate(calc(var(--giro) + 18deg)); } }
+  @keyframes pulso { 0% { box-shadow: 0 12px 28px rgba(0,0,0,.22), 0 0 0 0 rgba(26,158,82,.45); } 70% { box-shadow: 0 12px 28px rgba(0,0,0,.22), 0 0 0 16px rgba(26,158,82,0); } 100% { box-shadow: 0 12px 28px rgba(0,0,0,.22), 0 0 0 0 rgba(26,158,82,0); } }
 
   @media (prefers-reduced-motion: reduce) {
+    .js .hero h1, .js .hero .intro, .js .hero .acoes, .js .moldura, .js .revelar, .js .passos li::before { opacity: 1; transform: none; transition: none; }
+    .moldura .foto, .moldura::before, .capsula-voa, .flutuante { animation: none; }
+    .passos::after { transform: scaleX(1); transition: none; }
+    .destaque { background-size: 100% 100%; transition: none; }
+    .botao::after { display: none; }
     html { scroll-behavior: auto; }
-    .botao.enviando::before { animation: piscar 1.6s ease-in-out infinite; }
     .pilula-contorno { animation: none; stroke-dashoffset: 0; }
     .pilula-miolo { opacity: 1; animation: piscar 1.6s ease-in-out infinite; }
     .botao:hover { transform: none; }
@@ -201,18 +266,23 @@
     .faixa .container { grid-template-columns: 1fr; gap: 16px; }
     .lista-servicos { grid-template-columns: 1fr; }
     .passos { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
-    .passos::before { display: none; }
+    .passos::before, .passos::after { display: none; }
     footer .container { grid-template-columns: 1fr; gap: 28px; }
     .flutuante span { display: none; }
     .flutuante { padding: 16px; }
+    .capsula-voa.c3 { left: -8%; }
+    .capsula-voa.c2 { right: -8%; }
+    .numero-anos { font-size: 2.8rem; }
   }
   @media (max-width: 520px) {
-    .destaques { grid-template-columns: 1fr; }
     .passos { grid-template-columns: 1fr; }
     .formulario { padding: 24px; }
     .acoes .botao { width: 100%; }
+    .destaques { grid-template-columns: 1fr; }
   }
 </style>
+<script>document.documentElement.classList.add("js");</script>
+<noscript><style>#carregando { display: none; }</style></noscript>
 </head>
 <body>
 
@@ -250,10 +320,10 @@
 
 <main id="inicio">
 
-  <section class="hero">
+  <section class="hero" data-colmeia>
     <div class="container">
       <div>
-        <h1>Sua fórmula, do jeito que a receita pede.</h1>
+        <h1>Sua fórmula, do jeito que a <span class="destaque">receita</span> pede.</h1>
         <p class="intro">Farmácia de manipulação no Centro de Caratinga. Medicamentos, dermatológicos e suplementos preparados no nosso laboratório, com dose e forma ajustadas pra você.</p>
         <div class="acoes">
           <a class="botao botao-azul" href="#orcamento">Pedir orçamento</a>
@@ -264,16 +334,19 @@
         <div class="foto" data-legenda="Foto da fachada (img/fachada.jpg)">
           <img src="img/fachada.jpg" alt="Fachada da Biofarma na Rua Raul Soares, Centro de Caratinga" onerror="this.remove()">
         </div>
-        <div class="selo"><strong>Centro de Caratinga</strong>Rua Raul Soares, 15</div>
+        <div class="selo"><strong>Desde 2010</strong>Rua Raul Soares, 15 · Centro</div>
+        <span class="capsula-voa c1" aria-hidden="true"></span>
+        <span class="capsula-voa c2" aria-hidden="true"></span>
+        <span class="capsula-voa c3" aria-hidden="true"></span>
       </div>
     </div>
   </section>
 
   <div class="faixa">
     <div class="container">
-      <div><small>Endereço</small><p data-info="endereco">Rua Raul Soares, 15 - Centro, Caratinga - MG</p></div>
-      <div><small>Horário</small><p data-info="horario">Seg a Sex das 8h às 18h, Sáb das 8h às 12h</p></div>
-      <div><small>Telefones</small><p data-info="telefones"><a href="tel:+553333210000">(33) 3321-0000</a> / <a href="tel:+553333211221">(33) 3321-1221</a></p></div>
+      <div><small>Endereço</small><p>Rua Raul Soares, 15 - Centro, Caratinga - MG</p></div>
+      <div><small>Horário</small><p>Seg a Sex das 8h às 18h, Sáb das 8h às 12h</p></div>
+      <div><small>Telefones</small><p><a href="tel:+553333210000">(33) 3321-0000</a> / <a href="tel:+553333211221">(33) 3321-1221</a></p></div>
     </div>
   </div>
 
@@ -282,7 +355,10 @@
       <div>
         <h2>Uma farmácia do Centro, com laboratório próprio</h2>
         <p class="intro">Na Biofarma, cada fórmula é preparada aqui mesmo, a partir da sua receita. Assim dá pra ajustar dose, forma e quantidade ao que o seu médico, dentista ou nutricionista indicou, e tirar dúvidas direto com o farmacêutico.</p>
-        <p class="intro">Desde 2 de agosto de 2010, a Biofarma prepara fórmulas sob medida para Caratinga e região.</p>
+        <div class="marco">
+          <strong class="numero-anos" id="numero-anos">0</strong>
+          <div><span class="marco-titulo">anos manipulando fórmulas</span><span class="marco-sub">Desde 2 de agosto de 2010, preparando fórmulas sob medida para Caratinga e região.</span></div>
+        </div>
       </div>
       <aside class="cartao-farmaceutico">
         <small>Farmacêutico responsável</small>
@@ -345,11 +421,11 @@
         <h2>Onde estamos</h2>
         <dl>
           <dt>Endereço</dt>
-          <dd data-info="endereco">Rua Raul Soares, 15 - Centro, Caratinga - MG</dd>
+          <dd>Rua Raul Soares, 15 - Centro, Caratinga - MG</dd>
           <dt>Horário</dt>
-          <dd data-info="horario">Seg a Sex das 8h às 18h, Sáb das 8h às 12h</dd>
+          <dd>Seg a Sex das 8h às 18h, Sáb das 8h às 12h</dd>
           <dt>Telefones</dt>
-          <dd data-info="telefones"><a href="tel:+553333210000">(33) 3321-0000</a> / <a href="tel:+553333211221">(33) 3321-1221</a></dd>
+          <dd><a href="tel:+553333210000">(33) 3321-0000</a> / <a href="tel:+553333211221">(33) 3321-1221</a></dd>
           <dt>Instagram</dt>
           <dd><a href="https://www.instagram.com/biof_arma/" target="_blank" rel="noopener">@biof_arma</a></dd>
         </dl>
@@ -367,7 +443,7 @@
   <div class="container">
     <div>
       <strong>Biofarma</strong>
-      <p>Farmácia de Manipulação<br><span data-info="endereco">Rua Raul Soares, 15 - Centro, Caratinga - MG</span></p>
+      <p>Farmácia de Manipulação<br>Rua Raul Soares, 15 - Centro, Caratinga - MG</p>
     </div>
     <div>
       <h3>Responsável técnico</h3>
@@ -375,10 +451,10 @@
     </div>
     <div>
       <h3>Contato</h3>
-      <p data-info="telefones"><a href="tel:+553333210000">(33) 3321-0000</a> / <a href="tel:+553333211221">(33) 3321-1221</a></p>
+      <p><a href="tel:+553333210000">(33) 3321-0000</a> / <a href="tel:+553333211221">(33) 3321-1221</a></p>
       <p><a href="https://www.instagram.com/biof_arma/" target="_blank" rel="noopener">@biof_arma</a></p>
     </div>
-    <p class="rodape-final">© <span id="ano"></span> Biofarma Farmácia de Manipulação. <span class="preencher">CNPJ 11.730.825/0001-88</span></p>
+    <p class="rodape-final">© <span id="ano"></span> Biofarma Farmácia de Manipulação. <span class="preencher">CNPJ  11.730.825/0001-88</span></p>
   </div>
 </footer>
 
@@ -388,13 +464,17 @@
 </a>
 
 <script src="config.js"></script>
+<script src="colmeia.js"></script>
 <script>
   const TEMPO_CARREGANDO = 1700;
+  const reduzirMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const telaCarregando = document.getElementById("carregando");
   const formulario = document.getElementById("form-orcamento");
   const caixaErros = document.getElementById("erros");
   const botaoMenu = document.getElementById("abrir-menu");
   const menu = document.getElementById("menu");
+  const topo = document.querySelector(".topo");
+  const numeroAnos = document.getElementById("numero-anos");
 
   document.getElementById("ano").textContent = new Date().getFullYear();
 
@@ -410,10 +490,98 @@
 
   setTimeout(function () {
     telaCarregando.classList.add("saindo");
+    document.body.classList.add("pronto");
     setTimeout(function () {
       telaCarregando.remove();
     }, 400);
   }, TEMPO_CARREGANDO);
+
+  function calcularAnos() {
+    const hoje = new Date();
+    let anos = hoje.getFullYear() - 2010;
+    if (hoje.getMonth() < 7 || (hoje.getMonth() === 7 && hoje.getDate() < 2)) {
+      anos = anos - 1;
+    }
+    return anos;
+  }
+
+  function contarAnos(elemento) {
+    const destino = calcularAnos();
+    if (reduzirMovimento) {
+      elemento.textContent = String(destino);
+      return;
+    }
+    const duracao = 1600;
+    const inicio = performance.now();
+    function passo(agora) {
+      const progresso = Math.min((agora - inicio) / duracao, 1);
+      const suavizado = 1 - Math.pow(1 - progresso, 3);
+      elemento.textContent = String(Math.round(destino * suavizado));
+      if (progresso < 1) {
+        requestAnimationFrame(passo);
+      }
+    }
+    requestAnimationFrame(passo);
+  }
+
+  function atualizarTopo() {
+    if (window.scrollY > 10) {
+      topo.classList.add("rolado");
+    } else {
+      topo.classList.remove("rolado");
+    }
+  }
+  window.addEventListener("scroll", atualizarTopo, { passive: true });
+  atualizarTopo();
+
+  const seletoresRevelar = "section h2, section .intro, .marco, .servico, .passos, .cartao-farmaceutico, .painel-frasco, .destaques li, .formulario, .mapa, .dados-local dl, .faixa .container > div";
+  const alvosRevelar = Array.prototype.filter.call(document.querySelectorAll(seletoresRevelar), function (elemento) {
+    return !elemento.closest(".hero");
+  });
+
+  if ("IntersectionObserver" in window && !reduzirMovimento) {
+    alvosRevelar.forEach(function (elemento) {
+      const irmaos = Array.prototype.filter.call(elemento.parentElement.children, function (filho) {
+        return filho.matches(seletoresRevelar);
+      });
+      const posicao = irmaos.indexOf(elemento);
+      elemento.classList.add("revelar");
+      elemento.style.transitionDelay = ((posicao % 6) * 90) + "ms";
+    });
+    const observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add("visivel");
+          if (entrada.target.classList.contains("marco")) {
+            contarAnos(numeroAnos);
+          }
+          observador.unobserve(entrada.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    alvosRevelar.forEach(function (elemento) {
+      observador.observe(elemento);
+    });
+  } else {
+    alvosRevelar.forEach(function (elemento) {
+      elemento.classList.add("visivel");
+    });
+    numeroAnos.textContent = String(calcularAnos());
+  }
+
+  const painelFrasco = document.querySelector(".painel-frasco");
+  const fotoFrasco = painelFrasco.querySelector("img");
+  painelFrasco.addEventListener("pointermove", function (evento) {
+    if (evento.pointerType === "mouse" && !reduzirMovimento) {
+      const caixa = painelFrasco.getBoundingClientRect();
+      const x = (evento.clientX - caixa.left) / caixa.width - 0.5;
+      const y = (evento.clientY - caixa.top) / caixa.height - 0.5;
+      fotoFrasco.style.transform = "rotateY(" + (x * 10).toFixed(2) + "deg) rotateX(" + (-y * 10).toFixed(2) + "deg) scale(1.02)";
+    }
+  });
+  painelFrasco.addEventListener("pointerleave", function () {
+    fotoFrasco.style.transform = "";
+  });
 
   botaoMenu.addEventListener("click", function () {
     const aberto = menu.classList.toggle("aberto");
