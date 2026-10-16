@@ -85,7 +85,7 @@
   .a-partir small { display: block; font-size: .74rem; color: var(--cinza); font-weight: 600; }
   .a-partir strong { font-family: var(--titulo); font-size: 1.35rem; font-weight: 800; color: var(--azul-escuro); }
   .a-partir strong.consulta { font-family: var(--corpo); font-size: .98rem; color: var(--azul); }
-  .ver-detalhes { padding: 10px 16px; font-size: .9rem; }
+  .ver-detalhes { padding: 10px 16px; font-size: .9rem; white-space: nowrap; flex: none; }
 
   .icone-produto { flex: none; width: 52px; height: 52px; border-radius: 16px; background: #fff; display: grid; place-items: center; }
   .icone-produto span { width: 30px; height: 13px; border-radius: 99px; background: linear-gradient(90deg, var(--azul) 50%, var(--azul-escuro) 50%); transform: rotate(-30deg); }
@@ -112,6 +112,7 @@
   .beneficios li::before { content: ""; position: absolute; left: 0; top: 7px; width: 20px; height: 9px; border-radius: 99px; background: linear-gradient(90deg, var(--azul) 50%, var(--azul-escuro) 50%); transform: rotate(-30deg); }
   .composicao { display: flex; flex-wrap: wrap; gap: 6px; }
   .composicao span { background: var(--fundo-suave); border: 1px solid var(--linha); border-radius: 999px; padding: 4px 12px; font-size: .85rem; font-weight: 600; }
+  .modo-uso { margin: 0; font-size: .95rem; background: var(--fundo-suave); border: 1px solid var(--linha); border-radius: 12px; padding: 10px 14px; }
   .observacao { background: rgba(244,183,64,.14); border-left: 3px solid var(--ambar); border-radius: 8px; padding: 10px 14px; font-size: .9rem; margin: 0; }
 
   .grupo { border: 0; margin: 0; padding: 0; }
@@ -382,7 +383,9 @@
   }
 
   function descreverOpcao(forma, opcao) {
-    if (forma.unidade === "g") {
+    if (opcao.rotulo) {
+      return opcao.rotulo;
+    } else if (forma.unidade === "g") {
       return forma.nome + " " + opcao.quantidade + " g";
     } else {
       return opcao.quantidade + " " + forma.unidade;
@@ -510,7 +513,15 @@
       precoBloco.appendChild(criarElemento("small", "", "Preço"));
       precoBloco.appendChild(criarElemento("strong", "consulta", "Sob consulta"));
     } else {
-      precoBloco.appendChild(criarElemento("small", "", "A partir de"));
+      let quantasOpcoes = 0;
+      produto.formas.forEach(function (forma) {
+        quantasOpcoes = quantasOpcoes + forma.opcoes.length;
+      });
+      if (quantasOpcoes > 1) {
+        precoBloco.appendChild(criarElemento("small", "", "A partir de"));
+      } else {
+        precoBloco.appendChild(criarElemento("small", "", "Preço"));
+      }
       precoBloco.appendChild(criarElemento("strong", "", formatoReal.format(menor)));
     }
     rodape.appendChild(precoBloco);
@@ -561,6 +572,13 @@
         modalInfo.appendChild(bloco);
       }
 
+      if (produto.modoDeUso) {
+        const bloco = criarElemento("div");
+        bloco.appendChild(criarElemento("p", "bloco-titulo", "Modo de uso"));
+        bloco.appendChild(criarElemento("p", "modo-uso", produto.modoDeUso));
+        modalInfo.appendChild(bloco);
+      }
+
       if (produto.observacao) {
         modalInfo.appendChild(criarElemento("p", "observacao", produto.observacao));
       }
@@ -577,11 +595,15 @@
       }
 
       let rotulo = "Quantidade de cápsulas";
-      if (forma.unidade === "g") {
+      if (forma.titulo) {
+        rotulo = forma.titulo;
+      } else if (forma.unidade === "g") {
         rotulo = "Tamanho";
       }
       const nomesOpcoes = forma.opcoes.map(function (o) {
-        if (forma.unidade === "g") {
+        if (o.rotulo) {
+          return o.rotulo;
+        } else if (forma.unidade === "g") {
           return o.quantidade + " g";
         } else {
           return o.quantidade + " cápsulas";
