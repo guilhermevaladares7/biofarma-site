@@ -1,7 +1,8 @@
 const PRODUTOS = [
   {
     id: "creatina",
-    foto: "img/frasco.jpg",
+    foto: "img/creatina.jpg",
+    posicaoFoto: "center 75%",
     nome: "Creatina monohidratada",
     resumo: "Creatina pura, sem sabor e sem aditivos.",
     descricao: "Creatina monohidratada pura, em pó, sem sabor. Mistura fácil em água, suco ou no shake do pós-treino.",
@@ -24,7 +25,7 @@ const PRODUTOS = [
   },
   {
     id: "vitamina-d3",
-    foto: "img/frasco.jpg",
+    foto: "img/vitaminad3.jpg",
     nome: "Vitamina D3 2.000 UI",
     resumo: "Colecalciferol em cápsulas.",
     descricao: "Vitamina D3 (colecalciferol) 2.000 UI por cápsula, a forma de vitamina D que o próprio corpo produz com a luz do sol.",
@@ -49,7 +50,7 @@ const PRODUTOS = [
   },
   {
     id: "vitamina-c",
-    foto: "img/frasco.jpg",
+    foto: "img/vitaminac500mg.jpg",
     nome: "Vitamina C 500 mg",
     resumo: "Ácido ascórbico em cápsulas.",
     descricao: "Vitamina C (ácido ascórbico) 500 mg por cápsula.",
@@ -73,7 +74,7 @@ const PRODUTOS = [
   },
   {
     id: "magnesio",
-    foto: "img/frasco.jpg",
+    foto: "img/magnesio_dilamato.jpg",
     nome: "Magnésio dimalato 300 mg",
     resumo: "Magnésio na forma dimalato, em cápsulas.",
     descricao: "Magnésio dimalato 300 mg por cápsula. Nessa forma o magnésio vem ligado ao ácido málico, que costuma ser bem tolerado pelo estômago.",
@@ -97,7 +98,7 @@ const PRODUTOS = [
   },
   {
     id: "complexo-b",
-    foto: "img/frasco.jpg",
+    foto: "img/complexob.jpg",
     nome: "Complexo B otimizado",
     resumo: "Vitaminas do complexo B numa cápsula.",
     descricao: "Fórmula com as vitaminas do complexo B reunidas numa única cápsula.",
@@ -120,7 +121,7 @@ const PRODUTOS = [
   },
   {
     id: "zinco-selenio-q10",
-    foto: "img/frasco.jpg",
+    foto: "img/zinco.jpg",
     nome: "Zinco + Exselen + Coenzima Q10",
     resumo: "Zinco 15 mg, Exselen 10 mg e Coenzima Q10 150 mg.",
     descricao: "Três ativos numa cápsula: zinco 15 mg, Exselen® 10 mg (fonte de selênio) e coenzima Q10 150 mg.",
@@ -148,7 +149,7 @@ const PRODUTOS = [
   },
   {
     id: "pele-oral",
-    foto: "img/frasco.jpg",
+    foto: "img/hidroxitirosol.jpg",
     nome: "Hidroxitirosol + Polypodium leucotomos + Luteína",
     resumo: "Cápsulas com ativos antioxidantes para o cuidado da pele.",
     descricao: "Fórmula oral com ativos antioxidantes, usada como complemento no cuidado da pele exposta ao sol e com tendência a manchas.",
@@ -177,7 +178,7 @@ const PRODUTOS = [
   },
   {
     id: "creme-maos",
-    foto: "img/frasco.jpg",
+    foto: "img/creme.jpg",
     nome: "Creme para manchas nas mãos",
     resumo: "Creme clareador com quatro ativos, 50 g.",
     descricao: "Creme para uniformizar o tom da pele das mãos, com ativos que atuam nas manchas e na renovação da pele.",
@@ -199,14 +200,14 @@ const PRODUTOS = [
         nome: "Creme",
         unidade: "g",
         opcoes: [
-          { quantidade: 50, preco: null }
+          { quantidade: 50, preco: 75.0 }
         ]
       }
     ]
   },
   {
     id: "reducose",
-    foto: "img/frasco.jpg",
+    foto: "img/reducose.jpg",
     nome: "Reducose® 250 mg",
     resumo: "Extrato padronizado da folha de amoreira-branca.",
     descricao: "Reducose® é um extrato padronizado da folha de amoreira-branca (Morus alba), rico em DNJ (1-desoxinojirimicina), um composto que atua sobre as enzimas que digerem os carboidratos da refeição.",
@@ -232,7 +233,7 @@ const PRODUTOS = [
   },
   {
     id: "colesterol-redux",
-    foto: "img/frasco.jpg",
+    foto: "img/colesterolredux.jpg",
     nome: "Colesterol Redux",
     resumo: "Hexanicotinato de inositol + Red Yeast Rice.",
     descricao: "Fórmula com hexanicotinato de inositol, uma forma de vitamina B3 (niacina), e Red Yeast Rice (arroz de levedura vermelha), usada como apoio no controle do colesterol.",
@@ -259,7 +260,7 @@ const PRODUTOS = [
   },
   {
     id: "berberina-plus",
-    foto: "img/frasco.jpg",
+    foto: "img/barberinaplus.jpg",
     nome: "Berberina Plus (Bioberon®) 100 mg",
     resumo: "Berberina com tecnologia de maior absorção.",
     descricao: "Bioberon® é uma berberina com tecnologia que melhora a absorção pelo organismo em comparação com a berberina comum. A berberina é um composto natural extraído de plantas e muito estudado no metabolismo.",
