@@ -286,7 +286,7 @@ const PRODUTOS = [
   },
   {
     id: "maxsolve-q10",
-    foto: "img/frasco.jpg",
+    foto: "img/maxsolve.jpg",
     nome: "Maxsolve® Coenzima Q10 líquida",
     resumo: "Coenzima Q10 em gotas, com absorção otimizada.",
     descricao: "Maxsolve® é uma coenzima Q10 em gotas com tecnologia de nanoemulsão, que facilita a absorção de um ativo que naturalmente é pouco absorvido. Pode ser tomada pura ou misturada em líquidos.",
@@ -314,7 +314,7 @@ const PRODUTOS = [
   },
   {
     id: "peg-4000",
-    foto: "img/frasco.jpg",
+    foto: "img/peg400.jpg",
     nome: "PEG 4000 em envelopes",
     resumo: "Macrogol 4000 para o intestino preso.",
     descricao: "O PEG 4000 (macrogol) é um laxativo osmótico: ele retém água no intestino, amolecendo as fezes e facilitando a evacuação. Praticamente não é absorvido pelo organismo e não tem sabor.",
